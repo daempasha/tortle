@@ -12,7 +12,9 @@ def main():
         implemented_commands = ["type", "echo", "exit"]
         path = os.environ["PATH"]
         # Type
-        if command.startswith("type "):
+        args = command.split(" ")
+        
+        if args[0] == "type":
             command_name = command[5:]
             # Check if command in path
             if command_name in implemented_commands:
@@ -24,14 +26,18 @@ def main():
             continue
 
         # Echo
-        if command.startswith("echo "):
+        if args[0] == "echo":
             print(command[5:])
             continue
 
         # Exit
-        if command == "exit 0":
+        if args[0] == "exit" and args[1] == "0": 
             exit(0)
-        print(f"{command}: command not found")
+
+        if path := shutil.which(args[0]):
+            os.system(command)
+        else:
+            print(f"{command}: command not found")
         
     
 
