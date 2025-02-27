@@ -1,5 +1,6 @@
 import sys
-
+import os
+import shutil
 
 def main():
     # Implement REPL (https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)
@@ -9,12 +10,15 @@ def main():
         command = input()
         
         implemented_commands = ["type", "echo", "exit"]
-
+        path = os.environ["PATH"]
         # Type
         if command.startswith("type "):
             command_name = command[5:]
+            # Check if command in path
             if command_name in implemented_commands:
                 print(f"{command_name} is a shell builtin")
+            elif path := shutil.which(command_name): # basically path = shutil.which(command_name); if path:
+                print(f"{command_name} is {path}")
             else:
                 print(f"{command_name}: not found")
             continue
