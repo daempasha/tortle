@@ -9,11 +9,15 @@ def main():
         sys.stdout.write("$ ")
         command = input()
         
-        implemented_commands = ["type", "echo", "exit"]
+        implemented_commands = ["type", "echo", "exit", "pwd"]
         path = os.environ["PATH"]
         # Type
         args = command.split(" ")
         
+        if args[0] == "pwd":
+            print(os.getcwd())
+            continue
+
         if args[0] == "type":
             command_name = command[5:]
             # Check if command in path
@@ -34,6 +38,7 @@ def main():
         if args[0] == "exit" and args[1] == "0": 
             exit(0)
 
+        # Is executable
         if path := shutil.which(args[0]):
             os.system(command)
         else:
