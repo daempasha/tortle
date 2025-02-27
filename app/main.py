@@ -8,6 +8,17 @@ def main():
         sys.stdout.write("$ ")
         command = input()
         
+        implemented_commands = ["type", "echo", "exit"]
+
+        # Type
+        if command.startswith("type "):
+            command_name = command[5:]
+            if command_name in implemented_commands:
+                print(f"{command_name} is a shell builtin")
+            else:
+                print(f"{command_name}: not found")
+            continue
+
         # Echo
         if command.startswith("echo "):
             print(command[5:])
