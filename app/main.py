@@ -7,7 +7,13 @@ def main():
         # Wait for user input
         sys.stdout.write("$ ")
         command = input()
+        
+        # Echo
+        if command.startswith("echo "):
+            print(command[5:])
+            continue
 
+        # Exit
         if command == "exit 0":
             exit(0)
         print(f"{command}: command not found")
